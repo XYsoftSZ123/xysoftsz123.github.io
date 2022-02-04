@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ch">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1 {
+            font-size: 75px;
+        }
+
+        #a1 {
+            border: 3px #6cf double;
+            color: #114514;
+            background-color: #008c8c;
+            text-shadow: 1px 1px #fff,
+                -1px -1px #000;
+            font-family: 黑体;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 10px;
+        }
+
+        .span-col-3 {
+            grid-column: span 3 / auto;
+        }
+
+        .span-col-2 {
+            grid-column: span 2 / auto;
+        }
+    </style>
+    <script>
+        function displayDate() {
+            document.getElementById("demo").innerHTML = Date();
+        }
+        x = document.getElementById("demo");  //查找元素
+        x.innerHTML = "Hello JavaScript";    //改变内容
+    </script>
+</head>
+
+
+<body>
+    <center>
+        <h1 id="a1">主页</h1>
+        <hr>
+        <p>by XLT</p>
+        <p>hhhc</p>
+    </center>
+    <div class="grid">
+        <div class="span-col-3">Item 1</div>
+        <div>
+            <ul>
+                <li>beepbox</li>
+                <li>dictionary</li>
+                <li>2020/3</li>
+                <li>2020/4</li>
+                <li>2020/5</li>
+                <li>2020/6</li>
+                <li>2020/7</li>
+                <li>2020/8</li>
+                <li>2020/9</li>
+                <li>2020/10</li>
+                <li>2020/11</li>
+                <li>2020/12</li>
+                <li>2020/13</li>
+                <li>2020/14</li>
+            </ul>
+        </div>
+        <div class="span-col-2">Item 3</div>
+    </div>
+    <p id="demo"></p>
+    <button type="button" onclick="displayDate()">显示日期</button>
+</body>
+
+</html>
