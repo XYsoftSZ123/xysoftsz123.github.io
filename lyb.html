@@ -6,78 +6,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script>
-        function Ok_OnClick(event) {
-            if (document.getElementsByName("textName")[0].value == "") {
-                alert("请输入内容");
-                return;
-                var table;
-                var tableList = document.getElementsByTagName("TABLE");
-                for (var i = 0; i < tableList.length; i++) {
-                    if (tableList[i].name == "tableName") {
-                        table = tableList[i]
-                        break;
-                    }
-                }
-                var value = document.getElementsByName("textName")[0].value;
-                var index = table.rows.length;
-                table.insertRow(index);
-                table.rows(index).insertCell(0);
-                table.rows(index).cells(0).innerText = value;
-                document.getElementsByName("textName")[0].value = "";
-            }
-        }
-    </script>
-    <style>
-        td {
-            width: 20%;
-            height: 20px;
-            border-bottom: 1px solid black;
-            border-right: 1px solid black;
-            cursor: default;
-        }
-
-        div {
-            font-size: 13px;
-        }
-
-        th {
-            height: 20px;
-            font-size: 12px;
-            font-weight: normal;
-            border-bottom: 2px solid black;
-            background-color: #CCCCCC
-        }
-
-        table {
-            border: 1px solid black;
-            font-size: 13px;
-        }
-    </style>
 </head>
-<TR>
-<TR>
-    <TD>呵呵，一个超简陋的留言版^_^</TD>
-</TR>
-</TABLE>
-<BR>
-<div align="center">
-    <textarea rows="2" name="textName" id="textId" cols="20" style="width: 70%; clip: rect(0pt, 47pt, 18pt, 0pt); font-family: 宋体; font-size: 10pt; 
-        font-weight: normal; font-style: normal;text-align: left; vertical-align: middle; text-indent: 0; 
-        color: #000000; background-attachment: fixed; background-color: #EEEEEE; border: 1px 
-        solid #f8f8f8">
-        </textarea>
-</div>
-<BR>
-<div align="center">
-    <input type="button" value="提交" onclick="return Ok_OnClick(window.event);" style="align:center ; width:60 ; height: 21; clip: rect(0pt, 47pt, 18pt, 0pt); font-family: 宋体; 
-        font-size: 10pt; font-weight: normal; font-style: normal; cursor: hand; text-align: center; 
-        vertical-align: middle; text-indent: 0; color: #000000; background-attachment: fixed; 
-        background-color: #d8d8d8; border: 1px solid #59b4f7">
-    <!--position: absolute; left: 342; top: 184; -->
 
-    <body>
+<body>
 
-    </body>
+    <div id="txt">
+        <textarea id="text" value="" cols="80" rows="10"></textarea><br>
+        <button type="button" id="btn">评论留言</button>
+        <div id="lis">
+            <ol id="text_li">
+            </ol>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+            var tet = document.getElementById("text");
+            var butt = document.getElementById("btn");
+            var tet_li = document.getElementById("text_li");
+            butt.onclick = function msg() {
+                var Li = document.createElement("li");
+                Li.innerHTML = tet.value;
+                tet_li.appendChild(Li);
+            }
+    </script>
+</body>
 
 </html>
