@@ -11,17 +11,18 @@
         body {
             background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='32' height='32' patternTransform='scale(2) rotate(100)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(0,0%,100%,1)'/><path d='M37.657 10.343l-4.243 4.243m-2.828 2.828l-4.243 4.243m11.314 0l-4.243-4.243m-2.828-2.828l-4.243-4.243m-20.686 0l-4.243 4.243m-2.828 2.828l-4.243 4.243m11.314 0l-4.243-4.243m-2.828-2.828l-4.243-4.243'  stroke-linecap='square' stroke-width='7' stroke='hsla(258.5,59.4%,59.4%,1)' fill='none'/><path d='M16-8v6m0 4v6m8-8h-6m-4 0H8m8 24v6m0 4v6m8-8h-6m-4 0H8'  stroke-linecap='square' stroke-width='7' stroke='hsla(339.6,82.2%,51.6%,1)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>")
         }
-        
-        div{
+
+        div {
             background-color: rgba(255, 192, 203, 0.5);
         }
+
         h1 {
             font-size: 75px;
         }
 
         #a1 {
             border: 3px #6cf double;
-            color: rgba(108, 255, 103, 0.9);
+            color: rgba(108, 255, 103, 0.7);
             background-color: rgba(192, 225, 255, 0.7);
             text-shadow: 1px 1px #fff,
                 -1px -1px #000;
@@ -42,13 +43,19 @@
             grid-column: span 2 / auto;
         }
     </style>
-
+    <script>
+        function displayDate() {
+            document.getElementById("demo").innerHTML = Date();
+        }
+        x = document.getElementById("demo");  //查找元素
+        x.innerHTML = "Hello JavaScript";    //改变内容
+    </script>
 </head>
 
 
 <body>
     <center>
-        <h1 id="a1">主页</h1>
+        <h1 id="a1">HOMEPAGE!</h1>
         <p>by XLT</p>
         <p></p>
     </center>
@@ -57,11 +64,11 @@
         <div>
             <ul>
                 <li><a href="https://xysoftsz123.github.io/beepbox_offline.html">beepbox</a></li>
-                <li><a>dictionary</a></li>
+                <li><a href="https://xysoftsz123.github.io/test.html">dictionary</a></li>
                 <li><a href="https://xysoftsz123.github.io/lyb.html">message board</a></li>
                 <li><a href="https://xysoftsz123.github.io/tindex.html">tools</a></li>
-                <li><a></a></li>
-                <li><a></a></li>
+                <li><a href="https://xysoftsz123.github.io/clsivy9.html">Class 9!</a></li>
+                <li><a href="https://xysoftsz123.github.io/musicroom.html">Music Room~</a></li>
                 <li><a></a></li>
                 <li><a></a></li>
                 <li><a></a></li>
@@ -72,9 +79,14 @@
                 <li><a></a></li>
             </ul>
         </div>
-        <div class="span-col-2">Item 3</div>
+        <div class="span-col-2">This is a website as you see.<br>And it's also the offical website of Grade 2020 Class 9
+            of IVY EXPERIMENTAL HIGH SCHOOL.</div>
     </div>
     <p id="demo"></p>
+    <button type="button" onclick="displayDate()">显示日期</button>
+    <br>
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=300 height=80
+        src="https://music.163.com/outchain/player?type=2&id=22766017&auto=1&height=66"></iframe>
 </body>
 
 </html>
