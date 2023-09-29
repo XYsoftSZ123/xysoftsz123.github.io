@@ -1,0 +1,49 @@
+example:000107ivyj202009.html
+00:Jiangsu Prov.
+01:Beijing City.(Pr.Lvl)
+02:Tianjin City.(Pr.Lvl)
+03:Shanghai City.(Pr.Lvl)
+04:Chongqing City.(Pr.Lvl)
+05:Hebei Prov.
+06:Shandong Prov.
+07:Zhejiang Prov.
+08:Anhui Prov.
+-
+01:Suzhou City.
+02:Nanjing City.
+03:Wuxi City.
+04:Changzhou City.
+05:Zhenjiang City.
+06:Nantong City.
+07:Taizhou City.
+08:Huaian City.
+09:Xuzhou City.
+10:Lianyungang City.
+11:Suqian City.
+12:Yangzhou City.
+13:Yancheng City.
+-
+01:Gusu District.
+02:Xiangcheng District.
+03:Wuzhong District.
+04:FP. District.
+05:Wujiang District.
+06:Huqiu/HT District.
+07:Zhangjiagang City.
+08:Kunshan City.
+09:Changshu City.
+10:Taicang City.
+-
+ivy:School Name
+-
+o:offical
+p:primary
+j:journey
+h:high
+g:international
+-
+o:offical
+2020:Grade 2020
+-
+o:offial
+09:Class 9
