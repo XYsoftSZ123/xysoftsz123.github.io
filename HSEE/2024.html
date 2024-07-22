@@ -1,0 +1,402 @@
+
+<!-- saved from url=(0014)about:internet -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <script src="./2024/jquery-1.2.6.min.js.下载"></script>
+  <title>2024年孙镇市中考成绩查询</title>
+  <link rel="icon" href="data:image/ico;base64,aWNv">
+  <link href="./2024/style.css" rel="stylesheet" type="text/css">
+  <style>
+      .tipBox {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    left: 0;
+    top: 0;
+    z-index: 1010;
+  }
+
+  .tipFFF {
+    position: fixed;
+    top: 40%;
+    left: 10%;
+    width: 80%;
+    background-color: #fff;
+    border-radius: 30px;
+  }
+
+  .headText {
+    font-weight: 700;
+    font-size: 40px;
+    margin-top: 30px;
+  }
+
+  .tipText {
+    font-size: 40px;
+    margin-top: 90px;
+  }
+
+  #tcSure {
+    margin-top: 90px;
+    margin-bottom: 30px;
+    font-size: 40px;
+    color: rgba(109, 161, 255, 1);
+  }
+    .tar {
+      text-align: right;
+      width: 800px;
+      margin-top: 60px;
+      font-size: 14px;
+    }
+
+    .year {
+      margin-top: 0;
+    }
+
+    .line_gray {
+      display: none;
+    }
+
+    #body1 {
+      display: block;
+    }
+
+    .titleview {
+      padding-bottom: 40px;
+    }
+
+    .btsearch {
+      margin-bottom: 0 !important;
+    }
+    #kscj {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      opacity: 0.3;
+    }
+    #tableSY {
+      width: 800px;
+      height: 100px;
+	  position: relative;
+    }
+  </style>
+
+<script type="text/JavaScript">
+  var time = 10;//查询倒计时，默认10秒
+  var isDjs=false;
+    $(function(){
+
+    var myDate = new Date();
+    var n =  myDate.getFullYear();
+    var y =  myDate.getMonth();
+    var r = myDate.getDate(); 
+    $("#year").text('查询日期：'+n+'年' + (y + 1 ) + '月' + r +'日')
+    $("#dtn").text(n+'年孙镇市中考成绩查询')
+     getCaptcha()
+
+
+  });
+
+  function getCaptcha() {
+  var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/grade/getCaptcha", true);
+    xhr.responseType = "blob";
+    xhr.withCredentials = true;
+    xhr.onload = function() {
+    if (this.status == 200) {
+        var blob = this.response;
+        var img = document.createElement("img");
+        img.onload = function(e) {
+            window.URL.revokeObjectURL(img.src);
+        };
+        img.src = window.URL.createObjectURL(blob);
+        $('#yzm').attr('src', img.src);
+    }
+    }
+    xhr.send();
+  }
+  function sureBtn(){
+    $('.tipBox').hide();
+  }
+  function loadAllCj() {
+      if(isDjs){
+          alert("不可频繁操作，请稍后再试");
+          return;
+      }
+      var ksh = $("#ksh").val();
+      var bmh = $("#bmh").val();
+      var kch = $("#kch").val();
+      var zwh = $("#zwh").val();
+      var dlmm = $("#dlmm").val();
+      var verify = $("#verify").val();
+      if (ksh == "") {
+          alert("准考证号不能为空");
+          return;
+      }
+      if (bmh == "") {
+          alert("姓名不能为空");
+          return;
+      }
+
+      if (kch == "") {
+          alert("考场号不能为空");
+          return;
+      }
+      if (zwh == "") {
+          alert("座位号不能为空");
+          return;
+      }
+      // if (dlmm == "") {
+      //     alert("考生登录密码不能为空");
+      //     return;
+      // }
+      if (verify == "") {
+          alert("验证码不能为空");
+          return;
+      }
+      //$('.tipBox').show();
+      // 查询接口先注释
+     $.ajax({
+          type: "get",
+              // http://121.229.42.255:8888/
+              url: "/grade/getGrade?param=" + ksh + "_"+ encodeURIComponent(bmh) + "_"+ kch + "_"+ zwh   + "&password=" + 1 + "&captcha=" + verify,
+              // url:"http://121.224.59.250:8989/grade/getGrade?param=" + ksh + "_"+ bmh +"_" + "&password=" + 1 + "&captcha=" + "372178",
+          dataType: "json",
+          success: function (result, status) {
+
+              djs(time)
+			  getCaptcha()
+              if (result.code == 0) {
+                  djs(time);
+                      $("#ZKH").text(result.data.ZKH == null ? "0" : result.data.ZKH);
+                      $("#XM").text(result.data.XM == null ? "0" : result.data.XM);
+                      $("#KCH").text(result.data.ZWH == null ? "0" : result.data.KCH)
+                      $("#ZWH").text(result.data.ZWH == null ? "0" : result.data.ZWH)
+
+                      $("#YW").text(result.data.YW == null ? "0" : result.data.YW)
+                      $("#SX").text(result.data.SX == null ? "0" : result.data.SX)
+                      $("#WY").text(result.data.WY == null ? "0" : result.data.WY)
+                      $("#WL").text(result.data.WL == null ? "0" : result.data.WL)
+                      $("#HX").text(result.data.HX == null ? "0" : result.data.HX)
+                      $("#DF").text(result.data.ZZ == null ? "0" : result.data.ZZ)
+                      $("#LS").text(result.data.LS == null ? "0" : result.data.LS)
+                      $("#TY").text(result.data.TY == null ? "0" : result.data.TY)
+                      $("#JF").text(result.data.JF == null ? "0" : result.data.JF)
+                      $("#ZF").text(result.data.JFZF == null ? "0" : result.data.JFZF)
+                      $("#YSWCJ").text(result.data.YSWCJ == null ? "0" : result.data.YSWCJ)
+                  $('#body1').show()
+                  $('.line_gray').show()
+                  $('#search').hide()
+              } else {
+                  alert(result.msg);
+              }
+          },
+          error: function (data) {
+              alert(data.msg)
+          }
+      }); 
+  }
+   function djs(i){
+      i-=1;
+      isDjs=true
+      document.getElementById("search").innerText ="倒计时"+ i+"秒";
+      if(i==0){
+          document.getElementById("search").innerText ="查询";
+          isDjs=false;
+          return
+      }
+      setTimeout("djs("+i+")",1000);
+  }
+</script>
+    
+</head>
+
+<body>
+  <form name="zsksForm" id="zsksForm" method="post">
+    <input type="hidden" name="f" value="1620997375624">
+    <!--头部标记 -->
+    <div class="titleview">
+      <div class="title" id="dtn" style="margin-bottom: 10px;">2024年孙镇市中考成绩查询</div>
+      <p></p>
+      <span class="line mb40"></span>
+      <div>
+        <div class="flex_row mb20">
+          <div>
+            <span class="xing">*</span>
+            <span class="label">准考证号：</span>
+            <input class="content" type="text" name="ksh" id="ksh" placeholder="20240617031">
+          </div>
+          <div style="margin-left: 50px">
+            <span class="xing">*</span>
+            <span class="label">姓名：</span>
+            <input class="content" type="text" name="bmh" id="bmh" placeholder="东风谷早苗">
+          </div>
+        </div>
+        <div class="flex_row mb20">
+          <div>
+            <span class="xing" style="margin-left: 15px;">*</span>
+            <span class="label">考场号：</span>
+            <input class="content" type="text" name="kch" id="kch" placeholder="11">
+          </div>
+          <div style="margin-left: 50px">
+            <span class="xing">*</span>
+            <span class="label">座位号：</span>
+            <input class="content" type="text" name="zwh" id="zwh" placeholder="09">
+          </div>
+        </div>
+        <div class="flex_row">
+          <!-- <div>
+              <span class="xing" style="margin-left: 10px">*</span>
+              <span class="label">密 码：</span>
+              <input class="content" type="password" name="dlmm" id="dlmm" placeholder="请输入密码" />
+            </div> -->
+          <div style="margin-left: 15px; display: flex; align-items: center">
+            <span class="xing" style="margin-right: 4px">*</span>
+            <span class="label" style="margin-right: 4px">验证码：</span>
+            <input class="content" style="width: 195px" type="text" name="verify" id="verify" maxlength="5" placeholder="114514">
+            <img style="margin-left: 5px" width="100" height="40" id="yzm" onclick="getCaptcha()" src=".\2024\001.png">
+          </div>
+        </div>
+      </div>
+      <div class="btsearch" onclick="loadAllCj()" id="search">查询</div>
+    </div>
+    <div class="line_gray"></div>
+    <!--主体部分 -->
+    <div id="body1">
+      <div class="titleview" style="clear: both; margin-bottom: 16px;padding-bottom: 50px;">
+        <table width="800" border="0" cellspacing="0" cellpadding="0" style="margin-top: 10px;">
+          <tbody>
+            <tr>
+              <td height="10"></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table width="800" border="0" cellspacing="0" cellpadding="0" class="table4">
+          <tbody>
+            <tr>
+              <td class="tabletitle" align="center">成绩详细信息</td>
+            </tr>
+          </tbody>
+        </table>
+        <div id="tableSY">
+        <table width="800" border="1" cellspacing="0" cellpadding="0" bordercolor="#97c1d1" class="table5">
+          <tbody>
+            <tr>
+              <td width="110" class="tabletb">准考证号</td>
+              <td width="70" class="tabletb">姓<br>名</td>
+              <td width="40" class="tabletb">考场号</td>
+              <td width="40" class="tabletb">座位号</td>
+              <td width="40" class="tabletb">语<br>文</td>
+              <td width="40" class="tabletb">数<br>学</td>
+              <td width="40" class="tabletb">英<br>语</td>
+              <td width="40" class="tabletb">物<br>理</td>
+              <td width="40" class="tabletb">化<br>学</td>
+              <td width="40" class="tabletb">道<br>法</td>
+              <td width="40" class="tabletb">历<br>史</td>
+              <td width="40" class="tabletb">高华<br>丽学</td>
+              <td width="40" class="tabletb">体<br>育</td>
+              <td width="40" class="tabletb">加<br>分</td>
+              <td width="40" class="tabletb">总<br>分</td>
+              <td width="100" class="tabletb">语数外成绩</td>
+            </tr>
+            <tr>
+              <td name="ZKH" id="ZKH" class="tabletb">20240617031</td>
+              <td name="XM" id="XM" class="tabletb">东风谷早苗</td>
+              <td name="KCH" id="KCH" class="tabletb">11</td>
+              <td name="ZWH" id="ZWH" class="tabletb">09</td>
+              <td name="YW" id="YW" class="tabletb">123</td>
+              <td name="SX" id="SX" class="tabletb">129</td>
+              <td name="WY" id="WY" class="tabletb">124</td>
+              <td name="WL" id="WL" class="tabletb">98</td>
+              <td name="HX" id="HX" class="tabletb">99</td>
+              <td name="DF" id="DF" class="tabletb">50</td>
+              <td name="LS" id="LS" class="tabletb">49</td>
+              <td name="GHLX" id="GHLX" class="tabletb">20</td>
+              <td name="TY" id="TY" class="tabletb">50</td>
+              <td name="JF" id="JF" class="tabletb">0</td>
+              <td name="ZF" id="ZF" class="tabletb">742</td>
+              <td name="YSWCJ" id="YSWCJ" class="tabletb">376</td>
+            </tr>
+          </tbody>
+        </table>
+		<div id="kscj" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAABHhJREFUaEPtmWmotWMUhq9PZn4oRUKmH0REhihjhswyfkq+z5CIkiFjQqYfxowRMkQhU5kSCZEhZUiGEPJDIpJ59lx179pte3i+c9737Fedp3ad9n7O+677Wete617rWcD/Z10J3AvsDhwGfAtcBbwKfL+gozjWALYE3ga+iI2nAB8CHwNPAJ8DhwjC37sIZBvgphjt30cArwP75bMOcA6wK/APoKc6B2R54Drg8pz8nsBBwPHAtsBtAfbWYCR1zSNLl3A6sITVY8CvCa/TgWOKF34DlgF+H0aHrgAZxgnt3Ro4ADgvIDYrHnoH+KOLHpEHhtJrIe/DwPnAL+HExsDV4cXqgKTvJJDrgfuBl4CVgJsD4qSSWuWI2etvYCSIrpD9QuAb4IaEizwQ3EcB+DTwYqkbJw/zRC/EpsWRlYHlUtQ2AB4Cjkua1ba1gVtLDTkW+Cmf/4RTP0+mAcR06umbah8EDKH9gYuBg4H3Uxb0imAsihPXXANZD7gEOBH4GbgTuAN4tpB9rxh+V37bHFgUvnQOyIbAVtFMGndW4t6s5Fo1WsoaIjfMXFVrrj0yaNQZJeW+CzyVOrFs+FBl/LQ50v9+eWB4vQdcG32lol3i1bZHTKXG+hsReIMGCuQ+YHG01RUj9k0E1iYQQRj7zye9DjPmhOyxlswYRJsFcRCEylXiDqbSSR6b6Ik2C6LG3QisENW6UzTTuSGyCvfPagsrNzYZWpuWOrAmsE8kxbrALpEaPRD+tn3U7F+VNlZtaxLI+sBzgP2DkmO3dG/PlB5CIHsUCbJ3KXZnzjTFjkPUJBBDxrbTz0YJJ/sICS0AU2wrIJoi+4rp3gyV0zIM2DciUFVrONlvPBnPjBV/VXE0ZNNsPaKkUCc9EGMNn68AOzm7O1PvzqVtPTueWa0tMLMF4v+boXaMfvLk9YzfXwAo0Q0tpbjfOQFxjOP0o9E1WyAaYx/hQMAQerOIwseLh2xPd4goFETrqwkgplP77tujmwwrJfkn8U7rIGZCdk/aUHklTZHENe3aHDnOvCZhowTvhVnngHjqlwL3ZNohkVWqjnIcYRpCRxdQX2eYZhJotOg1VUc84bvTP+gFT/+oUgB/yIjm0SjYOfHA4EuWhCObJOP8GC8owSX6d1OxfOClk4D0OOHo/pG+1lOPnJqPz7CfMLy+nBaocUC2AC5K57aw9NDbAYdmyuHQzLCykl8W49VTrVTtmsMZB8TBwKep2u7zLsJxvkPmVVIjJLY1ZKogJqVfx5VH5uR7J+3c6fD0GXZ08kVwU/PEqMaqfyqu4LOffrmvDbVpcmjmPYW1xJls43KjJpTGZa1hN0UKQKeB1g6ngxoub16IWJzJO1v5nx5Hxt0UOQW/JQLwgwJkqUwADavOrB6QcTdFTv3cZ9jZh382lxW79qRGZa3qm6LaF7W9bxQQb1CrboraNrD2+eOAVN0U1b6o7X2jgKyVafjEm6K2Dax9/rjKbvVWmk+92NWAmSQaa57RiT3zQDrhhj4j5j0y75GWTuBfUaz7M7zqLRYAAAAASUVORK5CYII=&quot;); background-repeat: repeat;"></div>
+      </div>
+        <div class="tar">孙镇市教育考试院</div>
+        <div class="year tar" id="year">查询日期：2024年7月32日</div>
+      </div>
+    </div>
+
+    <!--末行背景 -->
+    <div class="b3" style="clear: both"></div>
+  </form>
+  <div class="tipBox">
+    <div class="tipFFF">
+      <div class="headText">提示</div>
+      <div class="tipText">目前暂未开放中考成绩查询</div>
+      <div id="tcSure" onclick="sureBtn()"> 确认</div>
+    </div>
+  </div>
+
+
+<script type="text/JavaScript">
+  function addObliqueWatermark(text, angle) {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+
+  // 设置水印文字样式
+  ctx.font = '40px Arial';
+  //ctx.fillStyle = '#FF550'; // 半透明黑色
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  // 计算水印的大小，这里假设水印宽度是100px，高度根据字体大小自动计算
+  const watermarkWidth = 50;
+  const watermarkHeight = 50; // 可以根据实际需要调整
+
+  // 设置画布大小
+  canvas.width = watermarkWidth;
+  canvas.height = watermarkHeight;
+
+  // 保存当前坐标系状态
+  ctx.save();
+
+  // 移动到画布中心
+  ctx.translate(watermarkWidth / 8, watermarkHeight*7 / 8);
+
+  // 旋转坐标系
+  ctx.rotate(angle * Math.PI / 180); // 将角度转换为弧度
+
+  // 绘制水印文字
+  ctx.fillText(text, 0, 0);
+  // 恢复坐标系状态
+  ctx.restore();
+
+  // 创建水印图片元素
+  const watermark = new Image();
+  watermark.src = canvas.toDataURL(); // DataURL是图片的Base64编码
+  // 将水印图片设置为背景，并附加到body
+  var abg=document.getElementById("kscj");
+  //var abg2=document.getElementById("kscjzf");
+  abg.style.backgroundImage = `url('${watermark.src}')`;
+  abg.style.backgroundRepeat = 'repeat'; // 根据需要设置背景重复方式
+  //abg2.style.backgroundImage = `url('${watermark.src}')`;
+  //abg2.style.backgroundRepeat = 'repeat'; // 根据需要设置背景重复方式
+
+}
+
+// 调用函数，生成偏斜水印
+var currentYear = new Date().getFullYear();
+addObliqueWatermark(`${currentYear}年 ${currentYear}年`, -45); // 设置偏斜角度为30度
+ </script>
+</body></html>
