@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>蓝粉幻境 | 简约文本模板</title>
+    <!-- 引入现代无衬线字体 Inter，提升优雅阅读体验 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #cfe4ff 0%, #ffe0f5 100%);
+            /* 基底是淡蓝粉渐变，保持背景统一，动态圆形会在上层 */
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            position: relative;
+            /* 确保内容层级高于浮动圆形 */
+            isolation: isolate;
+        }
+
+        /* ========= 动态光晕圆形 (动画核心) ========= */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(70px);
+            pointer-events: none;       /* 让圆不干扰点击/选择文字 */
+            z-index: -1;
+            opacity: 0.55;
+            will-change: transform;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+
+        /* 圆形1 – 梦幻粉紫色，较大且缓慢移动 */
+        .orb-1 {
+            width: 55vw;
+            height: 55vw;
+            background: radial-gradient(circle, rgba(255, 140, 180, 0.7), rgba(255, 100, 150, 0.3));
+            bottom: -10vh;
+            left: -15vw;
+            animation: floatOrb1 28s infinite alternate;
+        }
+
+        /* 圆形2 – 清凉湛蓝色，轻盈飘移 */
+        .orb-2 {
+            width: 65vw;
+            height: 65vw;
+            background: radial-gradient(circle, rgba(80, 160, 255, 0.65), rgba(120, 200, 250, 0.25));
+            top: -20vh;
+            right: -25vw;
+            animation: floatOrb2 32s infinite alternate;
+        }
+
+        /* 圆形3 – 暖柔淡珊瑚色，中等大小增加层次 */
+        .orb-3 {
+            width: 45vw;
+            height: 45vw;
+            background: radial-gradient(circle, rgba(255, 190, 160, 0.6), rgba(255, 140, 170, 0.3));
+            top: 40vh;
+            left: 60vw;
+            animation: floatOrb3 25s infinite alternate;
+        }
+
+        /* 各自独立动画，营造错落迷离的呼吸感 */
+        @keyframes floatOrb1 {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                transform: translate(8vw, 12vh) scale(1.15);
+            }
+        }
+
+        @keyframes floatOrb2 {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                transform: translate(-10vw, 15vh) scale(1.2);
+            }
+        }
+
+        @keyframes floatOrb3 {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                transform: translate(6vw, -12vh) scale(1.1);
+            }
+        }
+
+        /* 卡片容器 – 纯净、通透、磨砂质感，简约而现代 */
+        .text-card {
+            max-width: 680px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.78);
+            backdrop-filter: blur(3px);
+            border-radius: 2rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.12), 0 4px 18px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            animation: cardFadeIn 0.9s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        /* 轻度悬停效果，提升交互感，但保持简约 */
+        .text-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 28px 36px -14px rgba(0, 0, 0, 0.18);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(5px);
+        }
+
+        /* 入场渐现 + 微微上浮动画（优雅加载） */
+        @keyframes cardFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 排版风格 – 舒适间距，清晰层级 */
+        .card-header {
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #1f2b4e, #4a3b5c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .subheading {
+            font-size: 1rem;
+            font-weight: 450;
+            color: #5b5f7a;
+            letter-spacing: 0.01em;
+            border-left: 3px solid #ff9eb5;
+            padding-left: 0.75rem;
+            margin-top: 0.25rem;
+        }
+
+        .divider {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #a0c0ff, #ffb7d2);
+            border-radius: 4px;
+            margin: 1.5rem 0 1.8rem 0;
+        }
+
+        .content-text {
+            color: #1e293b;
+            font-size: 1.05rem;
+            line-height: 1.65;
+            font-weight: 400;
+        }
+
+        .content-text p {
+            margin-bottom: 1.4rem;
+        }
+
+        .content-text .highlight {
+            font-weight: 500;
+            color: #c75c8c;
+            background: linear-gradient(120deg, rgba(255, 220, 235, 0.6), rgba(200, 220, 255, 0.4));
+            padding: 0.1rem 0.3rem;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .quote-block {
+            margin: 1.8rem 0 1.5rem;
+            padding: 1.2rem 1.6rem;
+            background: rgba(245, 240, 255, 0.6);
+            border-radius: 1.2rem;
+            border-left: 5px solid #ff9eb5;
+            font-style: normal;
+            font-weight: 450;
+            color: #2c3e5c;
+            backdrop-filter: blur(2px);
+        }
+
+        .quote-block p {
+            margin: 0;
+            font-size: 0.98rem;
+            line-height: 1.55;
+        }
+
+        .quote-author {
+            display: block;
+            margin-top: 0.6rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #9b6b7c;
+        }
+
+        /* 小装饰 – 极细分割线 + 底部文字 */
+        .footer-note {
+            margin-top: 2.2rem;
+            padding-top: 1rem;
+            font-size: 0.75rem;
+            text-align: center;
+            color: #8e8ea8;
+            border-top: 1px solid rgba(160, 140, 180, 0.2);
+            letter-spacing: 0.3px;
+        }
+
+        /* 响应式：移动端调整内边距、字体大小，保持舒适 */
+        @media (max-width: 640px) {
+            .text-card {
+                padding: 1.75rem;
+                border-radius: 1.5rem;
+            }
+            .title {
+                font-size: 1.9rem;
+            }
+            .subheading {
+                font-size: 0.85rem;
+            }
+            .content-text {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+            .quote-block {
+                padding: 1rem 1.2rem;
+            }
+            .orb-1, .orb-2, .orb-3 {
+                filter: blur(55px);
+            }
+        }
+
+        /* 小屏幕平板调整 */
+        @media (max-width: 480px) {
+            .text-card {
+                padding: 1.5rem;
+            }
+            .title {
+                font-size: 1.7rem;
+            }
+            .divider {
+                width: 45px;
+                margin: 1.2rem 0 1.4rem;
+            }
+        }
+
+        /* 确保文本选中舒适，极简滚动条（可选） */
+        ::selection {
+            background: #ffbfd5;
+            color: #1e2a3a;
+        }
+
+        /* 保证body最小高度撑开，背景圆不会遮挡滚动内容 */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .special_style p {
+            text-indent: 2em;
+        }
+
+        .sp2 p {
+            text-align-last: right;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 动态背景光晕圆：蓝粉系飘逸动画，让界面温柔呼吸 -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <!-- 核心卡片：展示文本内容，清晰且优雅 -->
+    <main class="text-card">
+        <div class="card-header">
+            <div class="subheading">A letter from a distant place...</div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="content-text">
+            
+            <p>
+            <span class="highlight">亲爱的光梓：</span>
+            </p>
+            <p>
+                Hope this passage finds you well.
+            </p>
+
+
+            <p class="special_style">真的好久又没有和你联系了呢。我的整个高三下半年过的真是匆匆又从从，茫茫又忙忙。</p>
+            <p class="special_style">虽然我更加希望用纸质书信的方式来写信给你，然而“投递”不变。遂借此互联时代的网络邮递给你。</p>    
+            <p class="special_style">托gjs的福，礼物早已收到。又是一份弥足珍贵的，拯救我，于水深火热之中的一份精神慰藉。回忆起那时，正值我连续三次模考失利之际。那份留言真的给予了我不少坚持再战的力量。</p>    
+            <p class="special_style">所以，先谢谢你呢。</p>    
+            <p class="special_style">这三个多月来确实有很多事情要忙，所以几乎不可能每周都上线，聊天便没什么机会了，准备回礼更是难有闲暇，加之我略带的固执的那么一点完美主义，让我的回礼构想依然停留在草案阶段。说好的一起讨论综评的事也一直没找到机会（但其实说实话今年综评没什么特别值得报的，分数与专业毕竟不可兼得，白日梦不是那么好做的），又成了一个遗憾。有时我就因此觉得很抱歉但又很复杂。你给予我的，可谓远远超过我给予你的。我总觉得我应该再做点什么给你，因为我想尽力去维护你和我之间那平等的、珍贵的朋友、知己甚至是更高级的关系。我也曾经忧心过我们会因为高考分数相差过大而历受未来更久的分离，甚至是遭受一些“更加世俗”“会出现在一些漫画小说里”原因的事情……我想的也许太多也太远了，抑或是我经历了太多贴附于社会世俗的事情。我不敢相信这样的想法会出现在我的脑海里——一个标准的，带点科学至上主义的，平时连八卦都很少听的理科生的脑海中。玩过几部Galgame非但没有使我成为一个更好的“男主”，反而也许让我成为了一个“女主”吗（？）或者总而言之，是那种“不确定性”一直萦绕着我。</p>    
+            <p class="special_style">也许，时间会解决这些所有的问题。因为时间见证着不确定的确定的转变。追求确定的我选择相信时间。</p>    
+            <p class="special_style">这里有一些话也许很消极，但请一点点都不要放在心上，以及，永远去追求你的理想，追求你梦想中的院校和专业，做一个带点“自私”的人。</p>    
+            <p class="special_style">说了很多思绪很乱的话呢……</p>   
+            <p class="special_style">但是高考毕竟考完了，这是我们人生经历的第一场真正对自己负责，并且具有一定程度的决定性意义的考试，姑且把它当成“成人考”吧。经历了无数个日夜的奋斗，小憩一下，找回从前那个开朗的，“情绪外露”的我们。保持开心，顺从自我的内心，我们才能更轻松地面对未来。</p>    
+            <p class="special_style">我一直想和你聊一些开心、有意义的事情，追忆我们共同的过往，我们不同的过往，我们多姿多彩的未来，任凭时间的浪费。我想和你谈起“武士”形态的gjs、神秘的佛手柑、偶然发现的四叶草……乃至我想自己创作的galgame（</p>    
+            <p class="special_style">另外，gjs向我提议过我们可以找个机会一起搓一顿或者一起玩，我很期待这一天！</p>    
+            <p class="special_style">就这样啦！还有很多的东西可以在微信里谈吧。</p>    
+
+            
+            <!-- 简约引语区块，增强文本层次 -->
+            
+            <p class="sp2">
+                此致
+            </p>
+            <p>
+                <span class="highlight">Marisa Kirisame </span>
+                <p>2026.6.10 21:10</p>
+            </p>
+            <div class="quote-block">
+                <p>
+                    又及：你到时候愿意当我的美工么（（（
+                </p>
+                <p>
+                    又及：我可以帮你选个笔记本电脑，我还算在这方面有点研究的（（（
+                </p>
+            </div>
+            
+        </div>
+        
+        <!-- 极简底部标注，提供模板归属或替换提示 -->
+        <div class="footer-note">
+            <br style="display: inline-block;"> 
+            <span style="opacity: 0.7;"></span>
+        </div>
+    </main>
+
+    <!-- 无需额外JS，纯CSS实现动画与优雅视觉 -->
+</body>
+</html>
